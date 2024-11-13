@@ -9,7 +9,7 @@ export const registerUser = TryCatch(async (req, res) => {
   let user = await User.findOne({ email });
   if (user)
     return res.status(400).json({
-      message: "User ALready Exits",
+      message: "User Already Exits",
     });
 
     const hashPassword=await bcrypt.hash(password,10);
@@ -49,10 +49,12 @@ export const loginUser = TryCatch(async (req, res) => {
 
 });
 
+//My Profile
 export const myProfile=TryCatch(async (req,res)=>{
   const user=await User.findById(req.user._id);
   res.json(user)
 })
+//Logout User
 export const logoutUser=TryCatch(async (req,res)=>{
   res.cookie("token","",{
     maxAge:0,

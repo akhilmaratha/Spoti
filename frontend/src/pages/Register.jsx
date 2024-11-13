@@ -1,33 +1,21 @@
-import  { useState } from 'react';
-
-const Input = ({ type, placeholder, value, onChange }) => (
-  <input
-    type={type}
-    placeholder={placeholder}
-    value={value}
-    onChange={onChange}
-    className="w-full p-3 bg-[#282828] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-  />
-);
-
-const Button = ({ children, onClick }) => (
-  <button
-    onClick={onClick}
-    className="w-full py-3 px-4 bg-[#1DB954] text-white font-bold rounded-full hover:bg-[#1ED760] transition duration-300"
-  >
-    {children}
-  </button>
-);
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserData } from "../context/User";
 
 export default function SpotifyRegister() {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { registerUser, bntLoading } = UserData();
+  const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
     // Handle registration logic here
-    console.log('Register:', { username, email, password });
+    console.log(name,email,password);
+    
+    registerUser(name, email, password, navigate);
   };
 
   return (
@@ -39,31 +27,43 @@ export default function SpotifyRegister() {
           className="w-48 mx-auto mb-8"
         />
         <form onSubmit={handleRegister} className="space-y-6">
-          <Input
+          <input
             type="text"
             placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={name}
+          
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-3 bg-[#282828] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           />
-          <Input
+          <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+           
+            className="w-full p-3 bg-[#282828] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           />
-          <Input
+          <input
             type="password"
             placeholder="Password"
             value={password}
+        
             onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 bg-[#282828] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           />
-          <Button onClick={handleRegister}>Register</Button>
+          <button
+            disabled={bntLoading}
+            className="w-full py-3 px-4 bg-[#1DB954] text-white font-bold rounded-full hover:bg-[#1ED760] transition duration-300"
+            onClick={handleRegister}
+          >
+            {bntLoading ? "Loading..." : "Register"}
+          </button>
         </form>
         <p className="mt-6 text-center text-[#B3B3B3]">
-          Already have an account?{' '}
-          <a href="/login" className="text-[#1DB954] hover:underline">
+          Already have an account?{" "}
+          <Link to="/login" className="text-[#1DB954] hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>

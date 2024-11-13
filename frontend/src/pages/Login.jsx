@@ -1,21 +1,25 @@
 import  { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserData } from '../context/User';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
+
+  const { loginUser, bntLoading } = UserData();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email,password);
+    loginUser(email,password,navigate);
     
-    if (!email || !password) {
-      setError('Please enter both email and password.');
-    } else {
-      setError('');
-      console.log('Login attempted with:', email, password);
-      // Here you would typically handle the login logic
-    }
+    // if (!email || !password) {
+    //   setError('Please enter both email and password.');
+    // } else {
+    //   setError('');
+    //   console.log('Login attempted with:', email, password);
+    //   // Here you would typically handle the login logic
+    // }
   };
 
   return (
@@ -31,6 +35,7 @@ const Login = () => {
             <input
               type="email"
               placeholder="Email address"
+              name='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -41,18 +46,20 @@ const Login = () => {
             <input
               type="password"
               placeholder="Password"
+              name='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 rounded-md bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
               required
             />
           </div>
-          {error && <p className="text-red-500 text-center">{error}</p>}
+          {/* {error && <p className="text-red-500 text-center">{error}</p>} */}
           <button
             type="submit"
+            disabled={bntLoading}
             className="w-full bg-green-500 text-white py-3 rounded-full font-bold hover:bg-green-600 transition duration-300"
           >
-            LOG IN
+         {bntLoading ? "Loading..." : "Log In"}
           </button>
         </form>
         <a href="#" className="block text-center text-white mt-6 hover:underline">
