@@ -1,18 +1,23 @@
+// import React, { useState } from 'react';
 
+import Sidebar from '../components/Sidebar';
+// import MainContent from '../components/MainContent';
+import PlayListCard from '../components/PlayListCard';
+import PlaybackControls from '../components/Player';
+import { useState } from 'react';
 
-const Home = () => {
+function SpotifyHome() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <div className="flex items-center justify-center h-screen max-h-screen">
-        <div className="bg-black text-white p-8 rounded-lg shadow-lg max-h-screen w-full ">
-            <h2 className="text-3xl  font-semibold text-center mb-8">Welcome to Spotify</h2>
-            <form action="" className="mt-8 ">
-                <div className="mb-4">
-                    <label htmlFor="" className="block  text-sm font-medmb-2">Email</label>
-                </div>
-            </form>
-        </div>
+    <div className="flex flex-col h-screen bg-black text-white">
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+        <PlayListCard  setIsSidebarOpen={setIsSidebarOpen} />
+      </div>
+      <PlaybackControls />
     </div>
-  )
+  );
 }
 
-export default Home
+export default SpotifyHome;

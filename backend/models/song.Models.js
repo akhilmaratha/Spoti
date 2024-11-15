@@ -9,28 +9,22 @@ const songSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  thumbnail: {
-    id: {
-      type: String,
-      required: true,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-  },
   singer: {
     type: String,
     required: true,
   },
+  thumbnail: {
+   id:String,
+   url:String
+  },
   audio: {
     id: {
       type: String,
-      required: true,
+
     },
     url: {
       type: String,
-      required: true,
+      
     }
   },
   album: {

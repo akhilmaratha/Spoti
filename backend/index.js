@@ -7,7 +7,7 @@ import cloudinary from "cloudinary"
 // Configure dotenv first
 dotenv.config();
 
-cloudinary.config({
+cloudinary.v2.config({
   cloud_name:process.env.CLOUDINARY_NAME,
   api_key:process.env.CLOUDINARY_API_KEY,
   api_secret:process.env.CLOUDINARY_API_SECRET
@@ -25,9 +25,6 @@ import songRoutes from "./routes/song.Routes.js";
 app.use("/api/user", userRoutes);
 app.use("/api/song",songRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-})
 
 const port = process.env.PORT;
 app.listen(port, () => {
