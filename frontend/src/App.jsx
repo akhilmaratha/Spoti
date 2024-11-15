@@ -5,6 +5,7 @@ import Admin from "./pages/Admin";
 import Register from "./pages/Register";
 import { Loading } from "./components/loading";
 import { UserData } from "./context/User";
+import Playlist from "./pages/Playlist";
 const App = () => {
   const { loading,  isAuth } = UserData();
 
@@ -16,6 +17,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={isAuth ? <Home /> : <Login />} />
+            <Route path="/playlist" element={isAuth ? <Playlist/> : <Login />} />
             <Route path="/admin" element={isAuth? <Admin /> : <Login />} />
             <Route path="/login" element={isAuth ? <Home /> : <Login />} />
             <Route path="/register" element={isAuth ? <Home /> : <Register />} />

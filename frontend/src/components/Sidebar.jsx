@@ -1,39 +1,67 @@
-// import React from 'react';
-import { AiOutlineHome } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
-import { VscLibrary } from "react-icons/vsc";
-import NavItem from './Navbar';
+import React from "react";
+import { assets } from "../assets/assets";
+import { useNavigate } from "react-router-dom";
+import PlayListCard from "./PlayListCard";
+import { UserData } from "../context/User";
 
+const Sidebar = () => {
+  const navigate = useNavigate();
 
-function Sidebar({ isOpen, setIsOpen }) {
+  const { user } = UserData();
   return (
-    <aside className={`bg-black w-64 flex-shrink-0 overflow-y-auto transition-all duration-300 ease-in-out fixed inset-y-0 left-0 z-20 ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
-      <div className="p-6">
-        <button onClick={() => setIsOpen(false)} className="md:hidden mb-4 text-gray-400 hover:text-white">
-          Close
-        </button>
-        <nav className="space-y-4">
-          <NavItem icon={<AiOutlineHome />} label="Home" active />
-          <NavItem icon={<BiSearch />} label="Search" />
-          <NavItem icon={<VscLibrary />} label="Your Library" />
-        </nav>
-        <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Create Your First Playlist</h2>
-          <p className="text-sm text-gray-400 mb-4">It's easy, well help you</p>
-          <button className="w-full py-2 px-4 rounded bg-white text-black font-semibold hover:bg-opacity-80 transition-colors">
-            Create playlist
-          </button>
+    <div className="w-[25%] h-full p-2 flex-col gap-2 text-white hidden lg:flex">
+      <div className="bg-[#121212] h-[15%] rounded flex flex-col justify-around">
+        <div
+          className="flex items-center gap-3 pl-8 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          <img src={assets.home_icon} className="w-6" alt="" />
+          <p className="font-bold">Home</p>
         </div>
-        <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Lets find some podcast to follow</h2>
-          <p className="text-sm text-gray-400 mb-4">We ll keep you updated on new episodes</p>
-          <button className="w-full py-2 px-4 rounded bg-white text-black font-semibold hover:bg-opacity-80 transition-colors">
-            Browse podcasts
-          </button>
+        <div
+          className="flex items-center gap-3 pl-8 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          <img src={assets.search_icon} className="w-6" alt="" />
+          <p className="font-bold">Search</p>
         </div>
       </div>
-    </aside>
+
+      <div className="bg-[#121212] h-[85%] rounded">
+        <div className="p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src={assets.stack_icon} className="w-8" alt="" />
+            <p className="font-semibold">Your Library</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <img src={assets.arrow_icon} className="w-8" alt="" />
+            <img src={assets.plus_icon} className="w-8" alt="" />
+          </div>
+        </div>
+        <div onClick={() => navigate("/playlist")}>
+          <PlayListCard />
+        </div>
+
+        <div className="p-4 m-2 bg-[#121212] rounded font-semibold flex flex-col items-start justify-start gap-1 pl-4 mt-4">
+          <h1>Let's findsome podcasts to follow</h1>
+          <p className="font-light">we'll keep you update on new episodes</p>
+
+          <button className="px-4 py-1.5 bg-white text-black text-[15px] rounded-full mt-4">
+            Browse Podcasts
+          </button>
+        </div>
+
+        {user && user.role === "admin" && (
+          <button
+            className="px-4 py-1.5 bg-white text-black text-[15px] rounded-full mt-4"
+            onClick={() => navigate("/admin")}
+          >
+            Admin Dashboard
+          </button>
+        )}
+      </div>
+    </div>
   );
-}
+};
 
 export default Sidebar;

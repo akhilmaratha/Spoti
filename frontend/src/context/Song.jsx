@@ -11,17 +11,32 @@ export const SongProvider = ({ children }) => {
 
   
   const [selectedSong, setSelectedSong] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
 
 
   async function fetchSong() {
+    setSongLoading(true);
     try {
       const { data } = await axios.get("/api/song/all");
       setSongs(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setSongLoading(false);
     }
   }
+  const [song, setSong] = useState([]);
+
+  async function fetchSingleSong() {
+    try {
+      const { data } = await axios.get("/api/song/single/" + selectedSong);
+
+      setSong(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async function addAlbum(formdata, setTitle, setDescription, setFile) {
     setLoading(true);
     try {
@@ -108,6 +123,7 @@ export const SongProvider = ({ children }) => {
       setIndex(index + 1);
       setSelectedSong(songs[index + 1]._id);
     }
+    setIsPlaying(true);
   }
   function prevMusic() {
     if (index === 0) {
@@ -115,6 +131,7 @@ export const SongProvider = ({ children }) => {
     } else {
       setIndex(index - 1);
       setSelectedSong(songs[index - 1]._id);
+      setIsPlaying(true);
     }
   }
 
@@ -132,7 +149,7 @@ export const SongProvider = ({ children }) => {
   }
   return (
     <SongContext.Provider
-      value={{ songs, addAlbum, loading, songLoading, albums, addSong,addThumbnail,fetchAlbumSong,albumSong,albumData,selectedSong,isPlaying,nextMusic,prevMusic,deleteSong }}
+      value={{ songs, addAlbum, loading, songLoading, albums, addSong,addThumbnail,fetchAlbumSong,albumSong,albumData,selectedSong,isPlaying,nextMusic,prevMusic,deleteSong,fetchSingleSong,song,setIsPlaying }}
     >
       {children}
     </SongContext.Provider>

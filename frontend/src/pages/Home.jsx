@@ -1,23 +1,43 @@
-// import React, { useState } from 'react';
+import Layout from "../components/Layout";
+import { SongData } from "../context/Song";
+import AlbumItem from "../components/AlbumItem";
+import SongItem from "../components/SongItem";
 
-import Sidebar from '../components/Sidebar';
-// import MainContent from '../components/MainContent';
-import PlayListCard from '../components/PlayListCard';
-import PlaybackControls from '../components/Player';
-import { useState } from 'react';
-
-function SpotifyHome() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+const Home = () => {
+  const { songs, albums } = SongData();
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
-        <PlayListCard  setIsSidebarOpen={setIsSidebarOpen} />
+    <Layout>
+      <div className="mb-4">
+        <h1 className="my-5 font-bold text-2xl">Featured Charts</h1>
+        <div className="flex overflow-auto gap-5">
+          {albums.map((e, i) => (
+            <AlbumItem
+              key={i}
+              image={e.thumbnail.url}
+              name={e.title}
+              desc={e.description}
+              id={e._id}
+            />
+          ))}
+        </div>
       </div>
-      <PlaybackControls />
-    </div>
-  );
-}
 
-export default SpotifyHome;
+      <div className="mb-4">
+        <h1 className="my-5  font-bold text-2xl">Today&apos;s biggest hits</h1>
+        <div className="flex overflow-auto gap-5">
+          {songs.map((e, i) => (
+            <SongItem
+              key={i}
+              image={e.thumbnail.url}
+              name={e.title}
+              desc={e.description}
+              id={e._id}
+            />
+          ))}
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default Home;

@@ -56,11 +56,30 @@ export const UserProvider = ({ children }) => {
       setloading(false)
     }
   }
+  async function logoutUser() {
+    try {
+      const { data } = await axios.get("/api/user/logout");
+
+      window.location.reload();
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+   async function addToPlaylist(id) {
+    try {
+      const { data } = await axios.post("/api/user/song/" + id);
+
+      toast.success(data.message);
+      fetchUser();
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
   useEffect(()=>{
     fetchUser()
   },[])
   return (
-    <UserContext.Provider value={{registerUser,user,isAuth,bntLoading,loading,loginUser}}>
+    <UserContext.Provider value={{registerUser,user,isAuth,bntLoading,loading,loginUser,logoutUser,addToPlaylist}}>
       {children}
       <Toaster />
     </UserContext.Provider>
