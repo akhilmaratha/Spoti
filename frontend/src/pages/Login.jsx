@@ -1,17 +1,19 @@
 import  { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserData } from '../context/User';
+import { SongData } from '../context/Song';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const [error, setError] = useState('');
 
   const { loginUser, bntLoading } = UserData();
+  const { fetchAlbum,fetchSong } = SongData();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser(email,password,navigate);
+    loginUser(email,password,navigate,fetchAlbum,fetchSong);
     
     // if (!email || !password) {
     //   setError('Please enter both email and password.');

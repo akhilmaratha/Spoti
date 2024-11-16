@@ -140,16 +140,41 @@ export const SongProvider = ({ children }) => {
 
   async function fetchAlbumSong(id) {
     try {
-      const { data } = await axios.get("/api/song/album/" + id);
+      const { data } = await axios.get(`/api/song/album/${id}`);
       setAlbumSong(data.songs);
       setAlbumData(data.album);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching album songs:", error);
+      toast.error("Failed to load album songs");
     }
   }
+  
   return (
     <SongContext.Provider
-      value={{ songs, addAlbum, loading, songLoading, albums, addSong,addThumbnail,fetchAlbumSong,albumSong,albumData,selectedSong,isPlaying,nextMusic,prevMusic,deleteSong,fetchSingleSong,song,setIsPlaying }}
+      value={{ 
+        songs, 
+        addAlbum, 
+        loading, 
+        songLoading, 
+        albums, 
+        addSong,
+        addThumbnail,
+        fetchAlbumSong,
+        albumSong,
+        albumData,
+        selectedSong,
+        isPlaying,
+        nextMusic,
+        prevMusic,
+        deleteSong,
+        fetchSingleSong,
+        song,
+        setIsPlaying,
+        setSelectedSong,
+        setIndex,
+        fetchSong,
+        fetchAlbum
+      }}
     >
       {children}
     </SongContext.Provider>

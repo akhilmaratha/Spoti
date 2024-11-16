@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import Layout from "../components/Layout";
 import { SongData } from "../context/Song";
 import { useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ const Album = () => {
 
   useEffect(() => {
     fetchAlbumSong(params.id);
-  }, [params.id]);
+  }, [params.id,fetchAlbumSong]);
 
   const onclickHander = (id) => {
     setSelectedSong(id);
@@ -37,7 +37,8 @@ const Album = () => {
         <>
           <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-center">
             {albumData.thumbnail && (
-              <img
+              <img 
+              loading="lazy"
                 src={albumData.thumbnail.url}
                 className="w-48 rounded"
                 alt=""
@@ -73,16 +74,19 @@ const Album = () => {
           {albumSong &&
             albumSong.map((e, i) => (
               <div
-                className="grid grid-cols-3 sm:grid-cols-4 mt-10 mb-4 pl-2 text-[#a7a7a7] hover:bg-[#ffffff2b] cursor-pointer"
+                className="grid grid-cols-3 sm:grid-cols-4 mt-4 mb-4 pl-2 text-[#a7a7a7] hover:bg-[#ffffff2b] h-20 items-center cursor-pointer"
                 key={i}
+                // style={{ height: '100px' }} // Set a fixed height for each song
               >
-                <p className="text-white">
+                <p className="text-white flex items-center">
                   <b className="mr-4 text-[#a7a7a7]">{i + 1}</b>
-                  <img
-                    src={e.thumbnail.url}
-                    className="inline w-10 mr-5"
-                    alt=""
-                  />
+                  <div className="inline-block w-14 h-14 mr-5 rounded-sm overflow-hidden">
+                    <img
+                      src={e.thumbnail?.url || assets.noimage}
+                      className="w-full h-full object-cover"
+                      alt=""
+                    />
+                  </div>
                   {e.title}
                 </p>
                 <p className="text-[15px]">{e.singer}</p>
@@ -94,13 +98,13 @@ const Album = () => {
                     className="text-[15px] text-center"
                     onClick={() => savePlayListHandler(e._id)}
                   >
-                    <FaBookmark />
+                    <FaBookmark  size={15}/>
                   </p>
                   <p
                     className="text-[15px] text-center"
                     onClick={() => onclickHander(e._id)}
                   >
-                    <FaPlay />
+                    <FaPlay size={15}/>
                   </p>
                 </p>
               </div>

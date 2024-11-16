@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserData } from "../context/User";
+import { SongData } from "../context/Song";
 
 export default function SpotifyRegister() {
   const [name, setName] = useState("");
@@ -14,8 +15,9 @@ export default function SpotifyRegister() {
     e.preventDefault();
     // Handle registration logic here
     console.log(name,email,password);
+    const { fetchAlbum,fetchSong } = SongData();
     
-    registerUser(name, email, password, navigate);
+    registerUser(name, email, password, navigate,fetchAlbum,fetchSong);
   };
 
   return (

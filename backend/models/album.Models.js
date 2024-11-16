@@ -11,12 +11,10 @@ const albumSchema = new mongoose.Schema({
     },
     thumbnail:{
         id: {
-            type: String,
-            required: true
+            type: String,  
         },
         url: {
             type: String,
-            required: true
         }
     }
 },{timestamps:true})

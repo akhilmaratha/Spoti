@@ -1,17 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { SongData } from "../context/Song";
-import { 
-  BiPlay, 
-  BiPause, 
-  BiSkipPrevious, 
-  BiSkipNext, 
-  BiRepeat, 
-  BiShuffle 
-} from "react-icons/bi";
-import { 
-  BsLaptop, 
-  BsVolumeUp, 
-  // BsArrowsAngleExpand 
+import { BiPlay, BiPause, BiSkipPrevious, BiSkipNext } from "react-icons/bi";
+import {
+  BsLaptop,
+  BsVolumeUp,
+  // BsArrowsAngleExpand
 } from "react-icons/bs";
 import { assets } from "../assets/assets";
 
@@ -83,10 +76,10 @@ const Player = () => {
       {song && (
         <footer className="fixed bottom-0 w-full h-[13vh] bg-gray-900 border-t border-gray-800 flex items-center px-4 py-1">
           <div className="flex items-center flex-1 ">
-            <img 
-              src={song.thumbnail ? song.thumbnail.url : assets.noimage} 
-              alt="Album cover" 
-              className="w-10 h-10 mr-4" 
+            <img
+              src={song.thumbnail ? song.thumbnail.url : assets.noimage}
+              alt="Album cover"
+              className="w-10 h-10 mr-4"
             />
             <div>
               <h3 className="font-semibold text-gray-100">{song.title}</h3>
@@ -100,25 +93,25 @@ const Player = () => {
             {song && song.audio && (
               <audio ref={audioRef} src={song.audio.url} autoPlay={isPlaying} />
             )}
-            
+
             <div className="flex items-center space-x-4 mb-2">
-              <button className="text-gray-400 hover:text-white">
-                <BiShuffle size={20} />
+              <button
+                className="text-gray-400 hover:text-white"
+                onClick={prevMusic}
+              >
+                <BiSkipPrevious size={30} />
               </button>
-              <button className="text-gray-400 hover:text-white" onClick={prevMusic}>
-                <BiSkipPrevious size={24} />
-              </button>
-              <button 
+              <button
                 className="bg-white text-black rounded-full p-2 hover:bg-opacity-80 transition-colors"
                 onClick={handlePlayPause}
               >
                 {isPlaying ? <BiPause size={24} /> : <BiPlay size={24} />}
               </button>
-              <button className="text-gray-400 hover:text-white" onClick={nextMusic}>
-                <BiSkipNext size={24} />
-              </button>
-              <button className="text-gray-400 hover:text-white">
-                <BiRepeat size={20} />
+              <button
+                className="text-gray-400 hover:text-white"
+                onClick={nextMusic}
+              >
+                <BiSkipNext size={30} />
               </button>
             </div>
 
@@ -137,14 +130,14 @@ const Player = () => {
                 />
               </div>
               <span className="text-xs text-gray-400 ml-2">
-             {new Date(duration * 1000).toISOString().substr(14, 5)}
+                {new Date(duration * 1000).toISOString().substr(14, 5)}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4 flex-1 justify-end">
+          <div className="flex items-center space-x-4 flex-1 justify-end ">
             <BsLaptop size={20} className="text-gray-400" />
-            <div className="flex items-center">
+            <div className="flex items-center justify-center">
               <BsVolumeUp size={20} className="text-gray-400" />
               <div className="h-1 w-24 bg-gray-800 rounded-full ml-2">
                 <input

@@ -25,7 +25,7 @@ export const createAlbum = TryCatch(async (req, res) => {
   res.json({ message: "Album uploaded successfully" });
 });
 
-export const getAlbum = TryCatch(async (req, res) => {
+export const getAllAlbums = TryCatch(async (req, res) => {
   const albums = await Album.find();
   res.json(albums);
 });
@@ -33,20 +33,20 @@ export const getAlbum = TryCatch(async (req, res) => {
 export const createSong = TryCatch(async (req, res) => {
   if (req.user.role !== "admin")
     return res.status(401).json({ message: "Unauthorized" });
-    
+
   const { title, description, singer, album } = req.body;
-  
+
   if (!req.file) {
     return res.status(400).json({ message: "Please upload an audio file" });
   }
 
   const file = req.file;
   const fileUrl = getdataUrl(file);
-  
+
   try {
     const cloudResponse = await cloudinary.v2.uploader.upload(fileUrl.content, {
       resource_type: "video",
-      folder: "songs"
+      folder: "songs",
     });
 
     const song = await Song.create({
@@ -64,16 +64,16 @@ export const createSong = TryCatch(async (req, res) => {
       album,
     });
 
-    res.status(201).json({ 
+    res.status(201).json({
       success: true,
       message: "Song created successfully",
-      song 
+      song,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error creating song",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -86,7 +86,7 @@ export const addThumbnail = TryCatch(async (req, res) => {
   const fileUrl = getdataUrl(file);
   const cloudResponse = await cloudinary.v2.uploader.upload(fileUrl.content);
   await Song.findByIdAndUpdate(
-    req.params.id,  
+    req.params.id,
     {
       thumbnail: {
         id: cloudResponse.public_id,
@@ -98,15 +98,15 @@ export const addThumbnail = TryCatch(async (req, res) => {
   res.json({ message: "Thumbnail added successfully" });
 });
 
-export const getSong = TryCatch(async (req, res) => {
+export const getAllSongs = TryCatch(async (req, res) => {
   const songs = await Song.find();
   res.json(songs);
 });
 
 export const getSongByAlbum = TryCatch(async (req, res) => {
-  const album = await Song.findById(req.params.id);
+  const album = await Album.findById(req.params.id);
   const songs = await Song.find({ album: req.params.id });
-  res.json({album,songs});
+  res.json({ album, songs });
 });
 
 export const deleteSong = TryCatch(async (req, res) => {
@@ -119,6 +119,5 @@ export const deleteSong = TryCatch(async (req, res) => {
 
 export const getSingleSong = TryCatch(async (req, res) => {
   const song = await Song.findById(req.params.id);
-
   res.json(song);
 });

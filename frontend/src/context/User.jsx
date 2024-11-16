@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
   const [bntLoading, setBtnLoading] = useState(false);
   const [loading, setloading] = useState(true);
 
-  async function registerUser(name, email, password, navigate) {
+  async function registerUser(name, email, password, navigate,fetchAlbum,fetchSong) {
     setBtnLoading(true);
     try {
       const { data } = await axios.post("/api/user/register", {
@@ -22,12 +22,14 @@ export const UserProvider = ({ children }) => {
       setisAuth(true);
       setBtnLoading(false);
       navigate("/");
+      fetchAlbum();
+      fetchSong();
     } catch (error) {
       toast.error(error.response.data.message);
     }
   }
 
-  async function loginUser(email, password, navigate) {
+  async function loginUser(email, password, navigate,fetchAlbum,fetchSong) {
     setBtnLoading(true);
     try {
       const { data } = await axios.post("/api/user/login", {
@@ -39,6 +41,8 @@ export const UserProvider = ({ children }) => {
       setisAuth(true);
       setBtnLoading(false);
       navigate("/");
+      fetchAlbum();
+      fetchSong();
     } catch (error) {
       toast.error(error.response.data.message);
     }

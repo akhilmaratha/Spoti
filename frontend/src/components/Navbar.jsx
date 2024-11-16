@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../context/User";
 import { assets } from "../assets/assets";
@@ -24,14 +23,14 @@ const Navbar = () => {
           />
         </div>
         <div className="flex items-center gap-4">
-          <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">
+          {/* <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">
             Explore Premium
           </p>
           <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">
             Install App
-          </p>
+          </p> */}
           <p
-            className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl cursor-pointer"
+            className="bg-white text-black text-[15px] px-5 py-2 rounded-2xl cursor-pointer"
             onClick={logoutUser}
           >
             Logout
@@ -42,12 +41,12 @@ const Navbar = () => {
         <p className="bg-white text-black px-4 py-1 rounded-2xl cursor-pointer">
           All
         </p>
-        <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer hidden md:block">
+        {/* <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer hidden md:block">
           Music
         </p>
         <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer hidden md:block">
           Podcasts
-        </p>
+        </p> */}
         <p
           onClick={() => navigate("/playlist")}
           className="bg-black px-4 py-1 rounded-2xl cursor-pointer  md:hidden"

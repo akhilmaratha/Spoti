@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./db/db.js"
 import cloudinary from "cloudinary"
-
+import path from "path";
 // Configure dotenv first
 dotenv.config();
 
@@ -21,9 +21,18 @@ app.use(cookieParser());
 //Routes
 import userRoutes from "./routes/user.Routes.js";
 import songRoutes from "./routes/song.Routes.js";
+import { execPath } from "process";
 
 app.use("/api/user", userRoutes);
 app.use("/api/song",songRoutes);
+
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
 
 
 const port = process.env.PORT;
