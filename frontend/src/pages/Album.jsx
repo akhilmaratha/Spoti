@@ -35,7 +35,7 @@ const Album = () => {
     <Layout>
       {albumData && (
         <>
-          <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-center">
+          <div className="mt-10 flex gap-8 flex md:flex-row md:items-center">
             {albumData.thumbnail && (
               <img 
               loading="lazy"

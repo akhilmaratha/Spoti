@@ -7,9 +7,9 @@ const Home = () => {
   const { songs, albums } = SongData();
   return (
     <Layout>
-      <div className="mb-4">
-        <h1 className="my-5 font-bold text-2xl">Featured Charts</h1>
-        <div className="flex overflow-auto gap-5">
+      <div className="p-3 mb-5 ">
+        <h1 className="my-3 font-bold text-2xl">Featured Charts</h1>
+        <div className="flex overflow-x-auto gap-5">
           {albums.map((e, i) => (
             <AlbumItem
               key={i}
@@ -22,8 +22,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mb-4">
-        <h1 className="my-5  font-bold text-2xl">Today&apos;s biggest hits</h1>
+      <div className="p-3 mb-20">
+        <h1 className="my-3 font-bold text-2xl">Today&apos;s biggest hits</h1>
         <div className="flex overflow-auto gap-5">
           {songs.map((e, i) => (
             <SongItem

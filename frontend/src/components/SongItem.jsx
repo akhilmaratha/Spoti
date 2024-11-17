@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import { FaBookmark, FaPlay, FaRegBookmark } from "react-icons/fa";
 import { UserData } from "../context/User";
 import { SongData } from "../context/Song";
+import "../index.css";
 
 const SongItem = ({ image, name, desc, id }) => {
   const [saved, setSaved] = useState(false);
@@ -23,7 +24,7 @@ const SongItem = ({ image, name, desc, id }) => {
     addToPlaylist(id);
   };
   return (
-    <div className="bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors w-[250px]">
+    <div className="bg-gray-800 p-4 rounded-lg hover:bg-gray-700 transition-colors w-[180px] flex-shrink-0">
       <div className="relative mb-4">
         <div className="aspect-square w-full overflow-hidden rounded">
           <img 

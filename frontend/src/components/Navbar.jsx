@@ -1,60 +1,63 @@
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../context/User";
 import { assets } from "../assets/assets";
-
-const Navbar = () => {
+import { FaBars } from "react-icons/fa";
+const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
   const navigate = useNavigate();
   const { logoutUser } = UserData();
+
   return (
-    <>
-      <div className="w-full flex justify-between items-center font-semibold">
-        <div className="flex items-center gap-2">
-          <img
-            src={assets.arrow_left}
-            className="w-8 bg-black p-2 rounded-2xl cursor-pointer"
-            alt=""
-            onClick={() => navigate(-1)}
-          />
-          <img
-            src={assets.arrow_right}
-            className="w-8 bg-black p-2 rounded-2xl cursor-pointer"
-            alt=""
-            onClick={() => navigate(+1)}
-          />
+    <div className="flex items-center justify-center p-3 w-full">
+      <div className="p-5 flex items-center justify-center">
+        <FaBars
+          className={`text-white cursor-pointer ${
+            isSidebarOpen ? "hidden" : "block lg:hidden"
+          }`}
+          size={24}
+          onClick={toggleSidebar}
+        />
+      </div>
+      <div className="flex flex-col items-center justify-between w-full">
+        <div className="w-full flex items-center justify-start md:justify-between gap-5 font-semibold">
+          <div className="flex items-center gap-2">
+            <img
+              src={assets.arrow_left}
+              className="w-6 sm:w-8 bg-black p-1 sm:p-2 rounded-2xl cursor-pointer"
+              alt=""
+              onClick={() => navigate(-1)}
+            />
+            <img
+              src={assets.arrow_right}
+              className="w-6 sm:w-8 bg-black p-1 sm:p-2 rounded-2xl cursor-pointer"
+              alt=""
+              onClick={() => navigate(+1)}
+            />
+          </div>
+          <div className="flex items-center justify-start gap-2 ">
+            <p
+              className="bg-white text-black text-[13px] sm:text-[15px] px-3 sm:px-5 py-1 sm:py-2 rounded-2xl cursor-pointer"
+              onClick={logoutUser}
+            >
+              Logout
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          {/* <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">
-            Explore Premium
-          </p>
-          <p className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer">
-            Install App
-          </p> */}
+        <div className="flex items-center gap-1 sm:gap-2 mt-2 sm:mt-4 w-full">
           <p
-            className="bg-white text-black text-[15px] px-5 py-2 rounded-2xl cursor-pointer"
-            onClick={logoutUser}
+            onClick={() => navigate("/")}
+            className="bg-white text-black px-3 sm:px-4 py-1 rounded-2xl cursor-pointer"
           >
-            Logout
+            All
+          </p>
+          <p
+            onClick={() => navigate("/playlist")}
+            className="bg-white text-black px-3 sm:px-4 py-1 rounded-2xl cursor-pointer"
+          >
+            PlayList
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 mt-4">
-        <p className="bg-white text-black px-4 py-1 rounded-2xl cursor-pointer">
-          All
-        </p>
-        {/* <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer hidden md:block">
-          Music
-        </p>
-        <p className="bg-black px-4 py-1 rounded-2xl cursor-pointer hidden md:block">
-          Podcasts
-        </p> */}
-        <p
-          onClick={() => navigate("/playlist")}
-          className="bg-black px-4 py-1 rounded-2xl cursor-pointer  md:hidden"
-        >
-          PlayList
-        </p>
-      </div>
-    </>
+    </div>
   );
 };
 
